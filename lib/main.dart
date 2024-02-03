@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gdg_sfax/login.dart';
+import 'package:gdg_sfax/signup.dart';
 
 void main() {
   runApp(MyApp());
@@ -6,132 +8,15 @@ void main() {
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String? email;
-  String? password;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SafeArea(
-        child: Scaffold(
-          body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(
-                  "assets/images/GDG.png",
-                  height: MediaQuery.sizeOf(context).height * .2,
-                  width: MediaQuery.of(context).size.width,
-                ),
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 20),
-                    child: Text(
-                      "Getting Started",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w900,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ),
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 40),
-                    child: Text(
-                      "Let's login",
-                      style: TextStyle(
-                          fontSize: 20,
-                          //#9B9B9B
-                          color: Color(0xff9B9B9B)),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ),
-                Form(
-                  key: _formKey,
-                  child: Column(children: [
-                    CustomTextField(
-                      hintText: "example@gmail.com",
-                      labelText: "Email",
-                      icon: Icons.email,
-                      isValidated: true,
-                      validate: (val) {
-                        if (!val.contains("@")) {
-                          return "Enter a valid mail";
-                        } else {
-                          return null;
-                        }
-                      },
-                      save: (val) {
-                        email = val;
-                      },
-                    ),
-                    CustomTextField(
-                      hintText: "password",
-                      labelText: "Password",
-                      icon: Icons.lock,
-                      obscure: true,
-                      validate: (val) {
-                        if (val.length < 8) {
-                          return "Passowrd must be att least 8 characters";
-                        } else {
-                          return null;
-                        }
-                      },
-                      save: (value) {
-                        password = value;
-                      },
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: GestureDetector(
-                        onTap: () {
-                          print("Forget Password");
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.only(
-                            left: 20,
-                            top: 20,
-                          ),
-                          child: Text(
-                            "forget password ?",
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                        }
-                      },
-                      child: const Text(
-                        "Login",
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-
-
-
-
-                    
-                  ]),
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
+      routes: {
+        "login": (context) => Login(),
+        "signup": (context) => SignUp(),
+      },
+      initialRoute: "login",
     );
   }
 }
@@ -161,12 +46,13 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   bool isValid = false;
-@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
-@override
+
+  @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
@@ -235,13 +121,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
         onChanged: (value) {
           setState(() {
             print(isValid);
-          if (value.contains("@")) {
-            isValid = true;
-            print(isValid);
-          } else {
-            isValid = false;
-            print(isValid);
-          }
+            if (value.contains("@")) {
+              isValid = true;
+              print(isValid);
+            } else {
+              isValid = false;
+              print(isValid);
+            }
           });
         },
         onSaved: (val) {
