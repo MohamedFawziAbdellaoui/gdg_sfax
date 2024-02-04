@@ -4,6 +4,7 @@ import 'main.dart';
 
 class SignUp extends StatelessWidget {
   SignUp({super.key});
+  static const String id = "Signup";
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String? email;
   String? name;

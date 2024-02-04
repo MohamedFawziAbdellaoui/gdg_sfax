@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gdg_sfax/signup.dart';
+import 'package:gdg_sfax/upload_avatar.dart';
 
 import 'main.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});
+  static const String id = "login";
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String? email;
   String? password;
@@ -108,6 +111,8 @@ class Login extends StatelessWidget {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
+                        Navigator.pushNamed(context, UploadAvatar.id,
+                            arguments: email!);
                       }
                     },
                     child: const Text(
@@ -121,8 +126,7 @@ class Login extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: GestureDetector(
                       onTap: () {
-                        print("Do not Have an account ?");
-                        Navigator.pushNamed(context, "signup");
+                        Navigator.pushNamed(context, SignUp.id);
                       },
                       child: const Padding(
                         padding: EdgeInsets.only(

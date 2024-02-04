@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gdg_sfax/home.dart';
 import 'package:gdg_sfax/login.dart';
 import 'package:gdg_sfax/signup.dart';
+import 'package:gdg_sfax/upload_avatar.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,10 +15,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "login": (context) => Login(),
-        "signup": (context) => SignUp(),
+        Login.id: (context) => Login(),
+        SignUp.id: (context) => SignUp(),
+        UploadAvatar.id : (context) => const UploadAvatar(),
+        HomePage.id : (context) => const HomePage(),
       },
-      initialRoute: "login",
+      initialRoute:Login.id,
     );
   }
 }
