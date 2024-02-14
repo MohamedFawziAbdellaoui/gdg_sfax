@@ -1,26 +1,40 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:gdg_sfax/home.dart';
 import 'package:gdg_sfax/login.dart';
 import 'package:gdg_sfax/signup.dart';
 import 'package:gdg_sfax/upload_avatar.dart';
+import 'package:get/get.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(MyApp());
+late final FirebaseApp app;
+late final FirebaseAuth auth;
+late final FirebaseStorage storage;
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  app = await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  auth = FirebaseAuth.instanceFor(app: app);
+  storage = FirebaseStorage.instanceFor(app: app);
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        Login.id: (context) => Login(),
-        SignUp.id: (context) => SignUp(),
-        UploadAvatar.id : (context) => const UploadAvatar(),
-        HomePage.id : (context) => const HomePage(),
-      },
-      initialRoute:Login.id,
+    return GetMaterialApp(
+      getPages: [
+        GetPage(name: Login.id, page: () => Login()),
+        GetPage(name: SignUp.id, page: () => SignUp()),
+        GetPage(name: UploadAvatar.id, page: () => const UploadAvatar()),
+        GetPage(name: HomePage.id, page: () => const HomePage()),
+      ],
+      initialRoute: Login.id,
     );
   }
 }

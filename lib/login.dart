@@ -1,15 +1,33 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gdg_sfax/signup.dart';
 import 'package:gdg_sfax/upload_avatar.dart';
+import 'package:get/get.dart';
 
 import 'main.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});
-  static const String id = "login";
+  static const String id = "/login";
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String? email;
   String? password;
+  Future<UserCredential?> login(String mail, String pass) async {
+    try {
+      return await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: mail,
+        password: pass,
+      );
+    } catch (e) {
+      Get.dialog(const Scaffold(
+        body: Center(
+          child: Text("Either wrong mail or password"),
+        ),
+      ));
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -108,11 +126,13 @@ class Login extends StatelessWidget {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                        Navigator.pushNamed(context, UploadAvatar.id,
-                            arguments: email!);
+                        UserCredential? creds = await login(email!, password!);
+                        if (creds != null) {
+                          Get.toNamed(UploadAvatar.id,arguments: email!);
+                        }
                       }
                     },
                     child: const Text(
