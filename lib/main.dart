@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -12,6 +13,7 @@ import 'firebase_options.dart';
 late final FirebaseApp app;
 late final FirebaseAuth auth;
 late final FirebaseStorage storage;
+late final FirebaseFirestore firestore;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   app = await Firebase.initializeApp(
@@ -19,6 +21,7 @@ Future<void> main() async {
   );
   auth = FirebaseAuth.instanceFor(app: app);
   storage = FirebaseStorage.instanceFor(app: app);
+  firestore = FirebaseFirestore.instanceFor(app: app);
   runApp(const MyApp());
 }
 

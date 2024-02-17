@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:gdg_sfax/home.dart';
 import 'package:gdg_sfax/main.dart';
@@ -17,13 +16,13 @@ class UploadAvatar extends StatefulWidget {
 
 class _UploadAvatarState extends State<UploadAvatar> {
   var image = Rxn<XFile>();
-  XFile? imagex;
   final ImagePicker _picker = ImagePicker();
 
   final storageRef = storage.ref();
 
   Future uploadFile(File file) async {
     final avatarRef = storageRef.child(file.path.split('/').last);
+
     try {
       await avatarRef.putFile(file);
     } catch (e) {
@@ -51,7 +50,7 @@ class _UploadAvatarState extends State<UploadAvatar> {
                 height: 200,
                 width: 400,
                 color: Colors.amber,
-                child: Center(
+                child: const Center(
                   child: Text("BOTTOM SHEET example"),
                 ),
               ));
@@ -80,10 +79,10 @@ class _UploadAvatarState extends State<UploadAvatar> {
             ),
             GestureDetector(
               onTap: () async {
-                XFile? _selected =
+                XFile? selected =
                     await _picker.pickImage(source: ImageSource.gallery);
-                if (_selected != null) {
-                  image.value = XFile(_selected.path);
+                if (selected != null) {
+                  image.value = XFile(selected.path);
                   await uploadFile(File(image.value!.path));
                 }
               },

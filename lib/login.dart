@@ -1,17 +1,28 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gdg_sfax/home.dart';
 import 'package:gdg_sfax/signup.dart';
 import 'package:gdg_sfax/upload_avatar.dart';
 import 'package:get/get.dart';
 
 import 'main.dart';
 
-class Login extends StatelessWidget {
-  Login({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
   static const String id = "/login";
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   String? email;
+
   String? password;
+
   Future<UserCredential?> login(String mail, String pass) async {
     try {
       return await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -28,6 +39,9 @@ class Login extends StatelessWidget {
     }
   }
 
+  bool isLoginBtnPressed = false;
+  CollectionReference users = firestore.collection('user');
+  dynamic userData;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -126,15 +140,44 @@ class Login extends StatelessWidget {
                     ),
                   ),
                   TextButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        UserCredential? creds = await login(email!, password!);
-                        if (creds != null) {
-                          Get.toNamed(UploadAvatar.id,arguments: email!);
-                        }
-                      }
-                    },
+                    onPressed: !isLoginBtnPressed
+                        ? () async {
+                            setState(() {
+                              isLoginBtnPressed = true;
+                            });
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
+                              UserCredential? creds =
+                                  await login(email!, password!);
+                              setState(() {
+                                isLoginBtnPressed = false;
+                              });
+                              if (creds != null) {
+                                var allUsers = await users.get();
+                                userData = allUsers.docs
+                                    .where((element) {
+                                      return element["email"] == email;
+                                    })
+                                    .map((e) => e.data())
+                                    .first;
+                                print(userData);
+                                if (userData["imgPath"] == "") {
+                                  Get.toNamed(UploadAvatar.id,
+                                      arguments: email);
+                                } else {
+                                  String path = await storage
+                                      .ref()
+                                      .child(userData["imgPath"])
+                                      .getDownloadURL();
+                                  Get.toNamed(HomePage.id, arguments: {
+                                    "username": userData["name"],
+                                    "image": path
+                                  });
+                                }
+                              }
+                            }
+                          }
+                        : null,
                     child: const Text(
                       "Login",
                       style: TextStyle(

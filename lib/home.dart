@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:gdg_sfax/main.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,6 +13,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    final gsReference = storage.refFromURL("gs://gdg-sfax-01.appspot.com");
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
 
@@ -22,8 +29,9 @@ class _HomePageState extends State<HomePage> {
           child: CircleAvatar(
             backgroundColor: Colors.grey,
             radius: 50,
-            foregroundImage:
-                args["image"] != null ? FileImage(File(args["image"])) : null,
+            foregroundImage: args["image"] != null
+                ? NetworkImage(args["image"])
+                : null,
           ),
         ),
         title: Text(args["username"]),

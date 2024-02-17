@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "940841038263",
-    "project_id": "gdgsfax-79949",
-    "storage_bucket": "gdgsfax-79949.appspot.com"
+    "project_number": "348770220404",
+    "project_id": "gdg-sfax-01",
+    "storage_bucket": "gdg-sfax-01.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:940841038263:android:0573ed3fe8363250793832",
+        "mobilesdk_app_id": "1:348770220404:android:17fafa5dcda780a5951421",
         "android_client_info": {
           "package_name": "com.example.gdg_sfax"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCLH9Eu2ZaOmnqnaElsVD6tPTyekTZ_10A"
+          "current_key": "AIzaSyA4Fo8rcyUBTzvoSvB9t66u41TxSLdJ3EE"
         }
       ],
       "services": {

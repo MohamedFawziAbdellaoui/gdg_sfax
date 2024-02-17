@@ -47,29 +47,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBMado5yoPjaSO5_5Wj9WFy7jyUggyjubY',
-    appId: '1:940841038263:web:ceaaec38e22b6550793832',
-    messagingSenderId: '940841038263',
-    projectId: 'gdgsfax-79949',
-    authDomain: 'gdgsfax-79949.firebaseapp.com',
-    storageBucket: 'gdgsfax-79949.appspot.com',
-    measurementId: 'G-TLYDW38B25',
+    apiKey: 'AIzaSyC3Xkeb97S2e56ADcozcB5l-DsdioTFsis',
+    appId: '1:348770220404:web:bde4b2c42f0ff008951421',
+    messagingSenderId: '348770220404',
+    projectId: 'gdg-sfax-01',
+    authDomain: 'gdg-sfax-01.firebaseapp.com',
+    storageBucket: 'gdg-sfax-01.appspot.com',
+    measurementId: 'G-T4LNM9BM2B',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCLH9Eu2ZaOmnqnaElsVD6tPTyekTZ_10A',
-    appId: '1:940841038263:android:0573ed3fe8363250793832',
-    messagingSenderId: '940841038263',
-    projectId: 'gdgsfax-79949',
-    storageBucket: 'gdgsfax-79949.appspot.com',
+    apiKey: 'AIzaSyA4Fo8rcyUBTzvoSvB9t66u41TxSLdJ3EE',
+    appId: '1:348770220404:android:17fafa5dcda780a5951421',
+    messagingSenderId: '348770220404',
+    projectId: 'gdg-sfax-01',
+    storageBucket: 'gdg-sfax-01.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBka73TpQnF6Fy8-15TJFGohXDXPAbFu_U',
-    appId: '1:940841038263:ios:9e90a6c25ffd8839793832',
-    messagingSenderId: '940841038263',
-    projectId: 'gdgsfax-79949',
-    storageBucket: 'gdgsfax-79949.appspot.com',
+    apiKey: 'AIzaSyDSpsxbq3IlRU5ti11IXECOlztzvidTyy4',
+    appId: '1:348770220404:ios:b7881be28f85ed33951421',
+    messagingSenderId: '348770220404',
+    projectId: 'gdg-sfax-01',
+    storageBucket: 'gdg-sfax-01.appspot.com',
     iosBundleId: 'com.example.gdgSfax',
   );
 }
